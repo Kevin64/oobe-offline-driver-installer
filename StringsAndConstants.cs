@@ -8,6 +8,8 @@ namespace OfflineDriverInstallerOOBE
         internal const string path = "C:\\br.ufsm.ccsh.ti\\DriverStore";
         internal const string unknown = "Desconhecido";
         internal const string ToBeFilledByOEM = "To Be Filled By O.E.M.";
-        internal const string exeFileName = "pnputil.exe";
+        internal const int width = 1366;
+        internal const int height = 768;
+
     }
 }
