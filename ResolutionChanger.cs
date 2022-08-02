@@ -1,5 +1,7 @@
-﻿using System; 
-using System.Runtime.InteropServices; 
+﻿using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 // Code borrowed from the internets to change screen resolution
 namespace OfflineDriverInstallerOOBE
@@ -50,10 +52,12 @@ namespace OfflineDriverInstallerOOBE
         public int dmPanningHeight;
     };
 
-    class User_32
+    public static class PrmaryScreenResolution
     {
         [DllImport("user32.dll")]
         public static extern int EnumDisplaySettings(string deviceName, int modeNum, ref DEVMODE1 devMode);
+        [DllImport("user32.dll")]
+        public static extern bool EnumDisplaySettingsA(string deviceName, int modeNum, ref DEVMODE1 devMode);
         [DllImport("user32.dll")]
         public static extern int ChangeDisplaySettings(ref DEVMODE1 devMode, int flags);
 
@@ -63,48 +67,72 @@ namespace OfflineDriverInstallerOOBE
         public const int DISP_CHANGE_SUCCESSFUL = 0;
         public const int DISP_CHANGE_RESTART = 1;
         public const int DISP_CHANGE_FAILED = -1;
-    }
+        public static List<string> resListW;
+        public static List<string> resListH;
 
-    public class PrmaryScreenResolution
-    {
-        static public string ChangeResolution(int width, int height)
+
+        public static string ChangeResolution(int width, int height)
         {
+            getResolutions();
+            string screenWidth = Screen.PrimaryScreen.Bounds.Width.ToString();
+            string screenHeight = Screen.PrimaryScreen.Bounds.Height.ToString();
+            int sW = Convert.ToInt32(screenWidth);
+            int sH = Convert.ToInt32(screenHeight);
+
             DEVMODE1 dm = GetDevMode1();
 
-            if (0 != User_32.EnumDisplaySettings(null, User_32.ENUM_CURRENT_SETTINGS, ref dm))
+            if (resListW.Contains(StringsAndConstants.width.ToString()) && resListH.Contains(StringsAndConstants.height.ToString()) && sW < StringsAndConstants.width)
             {
-                dm.dmPelsWidth = width;
-                dm.dmPelsHeight = height;
-
-                int iRet = User_32.ChangeDisplaySettings(ref dm, User_32.CDS_TEST);
-
-                if (iRet == User_32.DISP_CHANGE_FAILED)
+                if (0 != EnumDisplaySettings(null, ENUM_CURRENT_SETTINGS, ref dm))
                 {
-                    return "Unable To Process Your Request. Sorry For This Inconvenience.";
+                    dm.dmPelsWidth = width;
+                    dm.dmPelsHeight = height;
+
+                    int iRet = ChangeDisplaySettings(ref dm, CDS_TEST);
+
+                    if (iRet == DISP_CHANGE_FAILED)
+                    {
+                        return "Unable To Process Your Request. Sorry For This Inconvenience.";
+                    }
+                    else
+                    {
+                        iRet = ChangeDisplaySettings(ref dm, CDS_UPDATEREGISTRY);
+                        switch (iRet)
+                        {
+                            case DISP_CHANGE_SUCCESSFUL:
+                                {
+                                    return "Success";
+                                }
+                            case DISP_CHANGE_RESTART:
+                                {
+                                    return "You Need To Reboot For The Change To Happen.\n If You Feel Any Problem After Rebooting Your Machine\nThen Try To Change Resolution In Safe Mode.";
+                                }
+                            default:
+                                {
+                                    return "Failed To Change The Resolution";
+                                }
+                        }
+                    }
                 }
                 else
                 {
-                    iRet = User_32.ChangeDisplaySettings(ref dm, User_32.CDS_UPDATEREGISTRY);
-                    switch (iRet)
-                    {
-                        case User_32.DISP_CHANGE_SUCCESSFUL:
-                            {
-                                return "Success";
-                            }
-                        case User_32.DISP_CHANGE_RESTART:
-                            {
-                                return "You Need To Reboot For The Change To Happen.\n If You Feel Any Problem After Rebooting Your Machine\nThen Try To Change Resolution In Safe Mode.";
-                            }
-                        default:
-                            {
-                                return "Failed To Change The Resolution";
-                            }
-                    }
+                    return "Failed To Change The Resolution.";
                 }
             }
-            else
+            return "Success";
+        }
+
+        private static void getResolutions()
+        {
+            DEVMODE1 vDevMode = new DEVMODE1();
+            resListW = new List<string>();
+            resListH = new List<string>();
+            int i = 0;
+            while (EnumDisplaySettingsA(null, i, ref vDevMode))
             {
-                return "Failed To Change The Resolution.";
+                resListW.Add(vDevMode.dmPelsWidth.ToString());
+                resListH.Add(vDevMode.dmPelsHeight.ToString());                
+                i++;
             }
         }
 

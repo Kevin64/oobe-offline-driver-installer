@@ -10,7 +10,7 @@ namespace OfflineDriverInstallerOOBE
 			string model = MiscMethods.GetModel();
 			if (model == StringsAndConstants.ToBeFilledByOEM || model == "")
 				model = MiscMethods.GetModelAlt();
-			string args = "/add-driver " + "\"" + StringsAndConstants.path + "\\" + MiscMethods.getOSVersion() + "\\" + MiscMethods.getOSArch() + "\\" + model + "\\" + "*" + "\"" + " /subdirs /install /reboot";
+			string args = "/add-driver " + "\"" + StringsAndConstants.path + "\\" + MiscMethods.getOSVersion() + "\\" + MiscMethods.getOSArch() + "\\" + model + "\\" + "*" + "\"" + " /subdirs /install";
 
 			try
 			{

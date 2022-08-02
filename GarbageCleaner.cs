@@ -4,7 +4,7 @@ namespace OfflineDriverInstallerOOBE
 {
     internal static class GarbageCleaner
     {
-        public static void cleanDiretories()
+        public static void cleanDirectories()
         {
             string model = MiscMethods.GetModel();
             if (model == StringsAndConstants.ToBeFilledByOEM || model == "")
