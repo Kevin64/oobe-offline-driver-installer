@@ -20,7 +20,7 @@ namespace OfflineDriverInstallerOOBE
             GarbageCleaner.cleanDirectories(defPath);
             PrmaryScreenResolution.ChangeResolution(Convert.ToInt32(resW), Convert.ToInt32(resH));
             if(rebootAfter == true)
-                Process.Start("shutdown", "/r /f");
+                Process.Start("shutdown", "/r /f /t 0");
         }
     }
 }
