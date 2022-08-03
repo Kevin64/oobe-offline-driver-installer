@@ -5,12 +5,12 @@ namespace OfflineDriverInstallerOOBE
 {
     internal static class PnpUtilCaller
     {
-		public static void installer()
+		public static void installer(string path)
         {
 			string model = MiscMethods.GetModel();
 			if (model == StringsAndConstants.ToBeFilledByOEM || model == "")
 				model = MiscMethods.GetModelAlt();
-			string args = "/add-driver " + "\"" + StringsAndConstants.path + "\\" + MiscMethods.getOSVersion() + "\\" + MiscMethods.getOSArch() + "\\" + model + "\\" + "*" + "\"" + " /subdirs /install";
+			string args = "/add-driver " + "\"" + path + "\\" + MiscMethods.getOSVersion() + "\\" + MiscMethods.getOSArch() + "\\" + model + "\\" + "*" + "\"" + " /subdirs /install";
 
 			try
 			{

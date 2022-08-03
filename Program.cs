@@ -1,4 +1,7 @@
-﻿using System.Diagnostics;
+﻿using IniParser;
+using IniParser.Model;
+using System;
+using System.Diagnostics;
 
 namespace OfflineDriverInstallerOOBE
 {
@@ -6,10 +9,18 @@ namespace OfflineDriverInstallerOOBE
     {
         static void Main(string[] args)
         {
-            PnpUtilCaller.installer();
-            GarbageCleaner.cleanDirectories();
-            PrmaryScreenResolution.ChangeResolution(StringsAndConstants.width, StringsAndConstants.height);
-            Process.Start("shutdown", "/r /f");
+            var parser = new FileIniDataParser();
+            IniData def = parser.ReadFile(StringsAndConstants.defFile);
+            var resW = def["Definitions"]["ResolutionWidth"];
+            var resH = def["Definitions"]["ResolutionHeight"];
+            var defPath = def["Definitions"]["DriverPath"];
+            var reboot = def["Definitions"]["RebootAfterFinished"];
+            bool rebootAfter = bool.Parse(reboot);
+            PnpUtilCaller.installer(defPath);
+            GarbageCleaner.cleanDirectories(defPath);
+            PrmaryScreenResolution.ChangeResolution(Convert.ToInt32(resW), Convert.ToInt32(resH));
+            if(rebootAfter == true)
+                Process.Start("shutdown", "/r /f");
         }
     }
 }

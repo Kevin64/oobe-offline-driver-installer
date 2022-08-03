@@ -81,7 +81,7 @@ namespace OfflineDriverInstallerOOBE
 
             DEVMODE1 dm = GetDevMode1();
 
-            if (resListW.Contains(StringsAndConstants.width.ToString()) && resListH.Contains(StringsAndConstants.height.ToString()) && sW < StringsAndConstants.width)
+            if (resListW.Contains(width.ToString()) && resListH.Contains(height.ToString()) && sW < width)
             {
                 if (0 != EnumDisplaySettings(null, ENUM_CURRENT_SETTINGS, ref dm))
                 {
@@ -92,7 +92,7 @@ namespace OfflineDriverInstallerOOBE
 
                     if (iRet == DISP_CHANGE_FAILED)
                     {
-                        return "Unable To Process Your Request. Sorry For This Inconvenience.";
+                        return StringsAndConstants.resChangeFailed;
                     }
                     else
                     {
@@ -101,25 +101,25 @@ namespace OfflineDriverInstallerOOBE
                         {
                             case DISP_CHANGE_SUCCESSFUL:
                                 {
-                                    return "Success";
+                                    return StringsAndConstants.resChangeSuccess;
                                 }
                             case DISP_CHANGE_RESTART:
                                 {
-                                    return "You Need To Reboot For The Change To Happen.\n If You Feel Any Problem After Rebooting Your Machine\nThen Try To Change Resolution In Safe Mode.";
+                                    return StringsAndConstants.resChangeReboot;
                                 }
                             default:
                                 {
-                                    return "Failed To Change The Resolution";
+                                    return StringsAndConstants.resChangeFailed;
                                 }
                         }
                     }
                 }
                 else
                 {
-                    return "Failed To Change The Resolution.";
+                    return StringsAndConstants.resChangeFailed;
                 }
             }
-            return "Success";
+            return StringsAndConstants.resChangeSuccess;
         }
 
         private static void getResolutions()
