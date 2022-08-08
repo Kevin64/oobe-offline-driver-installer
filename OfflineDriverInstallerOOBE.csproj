@@ -7,7 +7,7 @@
     <ProjectGuid>{EAA434CD-A72C-4D58-A703-DE09AA83E0D1}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>OfflineDriverInstallerOOBE</RootNamespace>
-    <AssemblyName>OfflineDriverInstallerOOBE-v1.0.0.0</AssemblyName>
+    <AssemblyName>OfflineDriverInstallerOOBE-v1.0.0.2208</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
