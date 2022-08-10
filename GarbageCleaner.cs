@@ -1,4 +1,6 @@
 ﻿using System.IO;
+using ConstantsDLL;
+using HardwareInfoDLL;
 
 namespace OfflineDriverInstallerOOBE
 {
@@ -6,10 +8,10 @@ namespace OfflineDriverInstallerOOBE
     {
         public static void cleanDirectories(string path)
         {
-            string model = MiscMethods.GetModel();
+            string model = HardwareInfo.GetModel();
             if (model == StringsAndConstants.ToBeFilledByOEM || model == "")
-                model = MiscMethods.GetModelAlt();
-            string p = path + MiscMethods.getOSVersion() + "\\" + MiscMethods.getOSArch() + "\\";
+                model = HardwareInfo.GetModelAlt();
+            string p = path + HardwareInfo.GetBIOSType() + "\\" + HardwareInfo.getOSVersion() + "\\" + HardwareInfo.getOSArchAlt() + "\\";
             DirectoryInfo directory = new DirectoryInfo(p);
             foreach (DirectoryInfo dir in directory.GetDirectories())
             {

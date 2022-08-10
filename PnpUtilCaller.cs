@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
+using ConstantsDLL;
+using HardwareInfoDLL;
 
 namespace OfflineDriverInstallerOOBE
 {
@@ -7,10 +9,10 @@ namespace OfflineDriverInstallerOOBE
     {
 		public static void installer(string path)
         {
-			string model = MiscMethods.GetModel();
+			string model = HardwareInfo.GetModel();
 			if (model == StringsAndConstants.ToBeFilledByOEM || model == "")
-				model = MiscMethods.GetModelAlt();
-			string args = "/add-driver " + "\"" + path + "\\" + MiscMethods.getOSVersion() + "\\" + MiscMethods.getOSArch() + "\\" + model + "\\" + "*" + "\"" + " /subdirs /install";
+				model = HardwareInfo.GetModelAlt();
+			string args = "/add-driver " + "\"" + path + HardwareInfo.GetBIOSType() + "\\" + HardwareInfo.getOSVersion() + "\\" + HardwareInfo.getOSArchAlt() + "\\" + model + "\\" + "*" + "\"" + " /subdirs /install";
 
 			try
 			{

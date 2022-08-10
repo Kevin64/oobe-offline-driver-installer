@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using ConstantsDLL;
 
 // Code borrowed from the internets to change screen resolution
 namespace OfflineDriverInstallerOOBE
