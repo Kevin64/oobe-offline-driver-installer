@@ -72,7 +72,7 @@ namespace OfflineDriverInstallerOOBE
         public static List<string> resListH;
 
 
-        public static string ChangeResolution(int width, int height)
+        public static string ChangeResolution(int width, int height, bool verbose)
         {
             getResolutions();
             string screenWidth = Screen.PrimaryScreen.Bounds.Width.ToString();
@@ -80,10 +80,25 @@ namespace OfflineDriverInstallerOOBE
             int sW = Convert.ToInt32(screenWidth);
             int sH = Convert.ToInt32(screenHeight);
 
+            if (verbose)
+            {
+                Console.WriteLine(StringsAndConstants.CHECKING_AVAILABLE_RESOLUTIONS);
+                Console.WriteLine();
+                Console.WriteLine(StringsAndConstants.CHECKING_RESOLUTION);
+                Console.WriteLine();
+                Console.WriteLine(sW + "x" + sH);
+                Console.WriteLine();
+            }
+
             DEVMODE1 dm = GetDevMode1();
 
             if (resListW.Contains(width.ToString()) && resListH.Contains(height.ToString()) && sW < width)
             {
+                if (verbose)
+                {
+                    Console.WriteLine(StringsAndConstants.CHANGING_RESOLUTION);
+                    Console.WriteLine();
+                }
                 if (0 != EnumDisplaySettings(null, ENUM_CURRENT_SETTINGS, ref dm))
                 {
                     dm.dmPelsWidth = width;
@@ -102,6 +117,11 @@ namespace OfflineDriverInstallerOOBE
                         {
                             case DISP_CHANGE_SUCCESSFUL:
                                 {
+                                    if (verbose)
+                                    {
+                                        Console.WriteLine(StringsAndConstants.CHANGING_RESOLUTION_SUCCESSFUL);
+                                        Console.WriteLine();
+                                    }
                                     return StringsAndConstants.resChangeSuccess;
                                 }
                             case DISP_CHANGE_RESTART:
@@ -120,6 +140,11 @@ namespace OfflineDriverInstallerOOBE
                     return StringsAndConstants.resChangeFailed;
                 }
             }
+            if (verbose)
+            {
+                Console.WriteLine(StringsAndConstants.CHANGING_RESOLUTION_UNNECESSARY);
+                Console.WriteLine();
+            }
             return StringsAndConstants.resChangeSuccess;
         }
 
@@ -132,7 +157,7 @@ namespace OfflineDriverInstallerOOBE
             while (EnumDisplaySettingsA(null, i, ref vDevMode))
             {
                 resListW.Add(vDevMode.dmPelsWidth.ToString());
-                resListH.Add(vDevMode.dmPelsHeight.ToString());                
+                resListH.Add(vDevMode.dmPelsHeight.ToString());
                 i++;
             }
         }

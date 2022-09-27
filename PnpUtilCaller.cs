@@ -35,7 +35,7 @@ namespace OfflineDriverInstallerOOBE
 				process.StartInfo.RedirectStandardOutput = true;
 				process.StartInfo.Arguments = args;
 				process.StartInfo.UseShellExecute = false;
-				process.StartInfo.CreateNoWindow = true;				
+				process.StartInfo.CreateNoWindow = true;
 				process.Start();
 				string output = process.StandardOutput.ReadToEnd();
 				process.WaitForExit();
@@ -45,8 +45,6 @@ namespace OfflineDriverInstallerOOBE
 				{
                     Console.WriteLine(StringsAndConstants.INSTALL_FINISHED);
                     Console.WriteLine();
-                    Console.WriteLine(StringsAndConstants.KEY_FINISH);
-                    Console.ReadLine();
                 }
             }
             catch (Exception e)

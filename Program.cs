@@ -31,12 +31,26 @@ namespace OfflineDriverInstallerOOBE
                 verboseConsole = bool.Parse(verbose);
                 if (instDrv)
                     PnpUtilCaller.installer(defPath, verboseConsole);
+                else if (verboseConsole)
+                    Console.WriteLine(StringsAndConstants.NOT_INSTALLING_DRIVERS);
                 if (clnGrb)
-                    GarbageCleaner.cleanDirectories(defPath);
+                    GarbageCleaner.cleanDirectories(defPath, verboseConsole);
+                else if (verboseConsole)
+                    Console.WriteLine(StringsAndConstants.NOT_ERASING_GARBAGE);
                 if (resChg)
-                    PrmaryScreenResolution.ChangeResolution(Convert.ToInt32(resW), Convert.ToInt32(resH));
+                    PrmaryScreenResolution.ChangeResolution(Convert.ToInt32(resW), Convert.ToInt32(resH), verboseConsole);
+                else if (verboseConsole)
+                    Console.WriteLine(StringsAndConstants.NOT_CHANGING_RESOLUTION);
                 if (rebootAfter)
                     Process.Start(StringsAndConstants.SHUTDOWN_CMD_1, StringsAndConstants.SHUTDOWN_CMD_2);
+                else if (verboseConsole)
+                    Console.WriteLine(StringsAndConstants.NOT_REBOOTING);
+                if (verboseConsole)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine(StringsAndConstants.KEY_FINISH);
+                    Console.ReadLine();
+                }
             }
             catch
             {
