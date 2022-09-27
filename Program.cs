@@ -10,27 +10,40 @@ namespace OfflineDriverInstallerOOBE
     {
         static void Main(string[] args)
         {
+            bool instDrv, clnGrb, resChg, rebootAfter, verboseConsole;
             var parser = new FileIniDataParser();
             IniData def = parser.ReadFile(StringsAndConstants.defFile);
-            var installDrv = def["Definitions"]["InstallDrivers"];
-            var cleanGarb = def["Definitions"]["CleanGarbage"];
-            var resChange = def["Definitions"]["ChangeResolution"];
-            var resW = def["Definitions"]["ResolutionWidth"];
-            var resH = def["Definitions"]["ResolutionHeight"];
-            var defPath = def["Definitions"]["DriverPath"];            
-            var reboot = def["Definitions"]["RebootAfterFinished"];
-            bool instDrv = bool.Parse(installDrv);
-            bool clnGrb = bool.Parse(cleanGarb);
-            bool resChg = bool.Parse(resChange);
-            bool rebootAfter = bool.Parse(reboot);
-            if(instDrv)
-                PnpUtilCaller.installer(defPath);
-            if(clnGrb)
-                GarbageCleaner.cleanDirectories(defPath);
-            if(resChg)
-                PrmaryScreenResolution.ChangeResolution(Convert.ToInt32(resW), Convert.ToInt32(resH));
-            if(rebootAfter)
-                Process.Start("shutdown", "/r /f /t 0");
+            var installDrv = def[StringsAndConstants.INI_SECTION_1][StringsAndConstants.INI_SECTION_1_1];
+            var cleanGarb = def[StringsAndConstants.INI_SECTION_1][StringsAndConstants.INI_SECTION_1_2];
+            var resChange = def[StringsAndConstants.INI_SECTION_1][StringsAndConstants.INI_SECTION_1_3];
+            var resW = def[StringsAndConstants.INI_SECTION_1][StringsAndConstants.INI_SECTION_1_4];
+            var resH = def[StringsAndConstants.INI_SECTION_1][StringsAndConstants.INI_SECTION_1_5];
+            var defPath = def[StringsAndConstants.INI_SECTION_1][StringsAndConstants.INI_SECTION_1_6];
+            var reboot = def[StringsAndConstants.INI_SECTION_1][StringsAndConstants.INI_SECTION_1_7];
+            var verbose = def[StringsAndConstants.INI_SECTION_1][StringsAndConstants.INI_SECTION_1_8];
+
+            try
+            {
+                instDrv = bool.Parse(installDrv);
+                clnGrb = bool.Parse(cleanGarb);
+                resChg = bool.Parse(resChange);
+                rebootAfter = bool.Parse(reboot);
+                verboseConsole = bool.Parse(verbose);
+                if (instDrv)
+                    PnpUtilCaller.installer(defPath, verboseConsole);
+                if (clnGrb)
+                    GarbageCleaner.cleanDirectories(defPath);
+                if (resChg)
+                    PrmaryScreenResolution.ChangeResolution(Convert.ToInt32(resW), Convert.ToInt32(resH));
+                if (rebootAfter)
+                    Process.Start(StringsAndConstants.SHUTDOWN_CMD_1, StringsAndConstants.SHUTDOWN_CMD_2);
+            }
+            catch
+            {
+                Console.WriteLine(StringsAndConstants.PARAMETER_ERROR);
+                Console.WriteLine(StringsAndConstants.KEY_FINISH);
+                Console.ReadLine();
+            }
         }
     }
 }

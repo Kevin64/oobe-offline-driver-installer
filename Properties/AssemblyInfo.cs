@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Instalador de Drivers Offline - OOBE")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Copyright UFSM © 2022")]
+[assembly: AssemblyCompany("Universidade Federal de Santa Maria")]
 [assembly: AssemblyProduct("Instalador de Drivers Offline - OOBE")]
-[assembly: AssemblyCopyright("Subdivisão de Tecnologia da Informação / CCSH - UFSM")]
+[assembly: AssemblyCopyright("Copyright UFSM © 2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // É possível especificar todos os valores ou usar como padrão os Números de Build e da Revisão
 // usando o "*" como mostrado abaixo:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.1.1.2208")]
-[assembly: AssemblyFileVersion("1.1.1.2208")]
+[assembly: AssemblyVersion("1.2.0.2209")]
+[assembly: AssemblyFileVersion("1.2.0.2209")]
