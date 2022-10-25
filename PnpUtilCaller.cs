@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using ConstantsDLL;
 using HardwareInfoDLL;
+using LogGeneratorDLL;
 
 namespace OfflineDriverInstallerOOBE
 {
     internal static class PnpUtilCaller
     {
-		public static void installer(string path, bool verbose)
+		public static void installer(string path, LogGenerator log)
         {
 			string model = HardwareInfo.GetModel();
 			if (model == StringsAndConstants.ToBeFilledByOEM || model == "")
@@ -15,22 +17,21 @@ namespace OfflineDriverInstallerOOBE
 			string type = HardwareInfo.GetBIOSType();
 			string osVersion = HardwareInfo.getOSVersion();
 			string osArch = HardwareInfo.getOSArchAlt();
-            string args = "/add-driver " + "\"" + path + type + "\\" + osVersion + "\\" + osArch + "\\" + model + "\\" + "*" + "\"" + " /subdirs /install";
+			string pathExt = path + type + "\\" + osVersion + "\\" + osArch + "\\" + model + "\\";
+            string args = "/add-driver " + "\"" + pathExt + "*" + "\"" + " /subdirs /install";
 
-			if(verbose)
-			{
-                Console.WriteLine(StringsAndConstants.HW_MODEL + model);
-                Console.WriteLine(StringsAndConstants.OS_VERSION + osVersion);
-                Console.WriteLine(StringsAndConstants.OS_ARCH + osArch);
-                Console.WriteLine(StringsAndConstants.FIRMWARE_TYPE + type);
-				Console.WriteLine();
-                Console.WriteLine(StringsAndConstants.INSTALLING);
-                Console.WriteLine();
-            }
+            log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.HW_MODEL, model, StringsAndConstants.consoleOutCLI);
+            log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.OS_VERSION, osVersion, StringsAndConstants.consoleOutCLI);
+            log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.OS_ARCH, osArch, StringsAndConstants.consoleOutCLI);
+            log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.FIRMWARE_TYPE, type, StringsAndConstants.consoleOutCLI);
+            log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.INSTALLING, string.Empty, StringsAndConstants.consoleOutCLI);
 
             try
 			{
-				Process process = new Process();
+                if (!Directory.Exists(pathExt))
+                    throw new DirectoryNotFoundException(StringsAndConstants.DIRECTORY_DO_NOT_EXIST);
+
+                Process process = new Process();
 				process.StartInfo.FileName = "pnputil.exe";
 				process.StartInfo.RedirectStandardOutput = true;
 				process.StartInfo.Arguments = args;
@@ -40,16 +41,12 @@ namespace OfflineDriverInstallerOOBE
 				string output = process.StandardOutput.ReadToEnd();
 				process.WaitForExit();
 				process.Close();
-                
-				if(verbose)
-				{
-                    Console.WriteLine(StringsAndConstants.INSTALL_FINISHED);
-                    Console.WriteLine();
-                }
+
+				log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.INSTALL_FINISHED, string.Empty, StringsAndConstants.consoleOutCLI);
             }
-            catch (Exception e)
+            catch (DirectoryNotFoundException e)
 			{
-				Console.WriteLine(e);
+                log.LogWrite(StringsAndConstants.LOG_ERROR, pathExt, e.Message, StringsAndConstants.consoleOutCLI);
 			}
 		}
     }

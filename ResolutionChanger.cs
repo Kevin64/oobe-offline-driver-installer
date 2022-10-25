@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using ConstantsDLL;
+using LogGeneratorDLL;
 
 // Code borrowed from the internets to change screen resolution
 namespace OfflineDriverInstallerOOBE
@@ -72,7 +73,7 @@ namespace OfflineDriverInstallerOOBE
         public static List<string> resListH;
 
 
-        public static string ChangeResolution(int width, int height, bool verbose)
+        public static string ChangeResolution(int width, int height, LogGenerator log)
         {
             getResolutions();
             string screenWidth = Screen.PrimaryScreen.Bounds.Width.ToString();
@@ -80,25 +81,14 @@ namespace OfflineDriverInstallerOOBE
             int sW = Convert.ToInt32(screenWidth);
             int sH = Convert.ToInt32(screenHeight);
 
-            if (verbose)
-            {
-                Console.WriteLine(StringsAndConstants.CHECKING_AVAILABLE_RESOLUTIONS);
-                Console.WriteLine();
-                Console.WriteLine(StringsAndConstants.CHECKING_RESOLUTION);
-                Console.WriteLine();
-                Console.WriteLine(sW + "x" + sH);
-                Console.WriteLine();
-            }
+            log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.CHECKING_AVAILABLE_RESOLUTIONS, string.Empty, StringsAndConstants.consoleOutCLI);
+            log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.CHECKING_RESOLUTION, sW + "x" + sH, StringsAndConstants.consoleOutCLI);
 
             DEVMODE1 dm = GetDevMode1();
 
             if (resListW.Contains(width.ToString()) && resListH.Contains(height.ToString()) && sW < width)
             {
-                if (verbose)
-                {
-                    Console.WriteLine(StringsAndConstants.CHANGING_RESOLUTION);
-                    Console.WriteLine();
-                }
+                log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.CHANGING_RESOLUTION, string.Empty, StringsAndConstants.consoleOutCLI);
                 if (0 != EnumDisplaySettings(null, ENUM_CURRENT_SETTINGS, ref dm))
                 {
                     dm.dmPelsWidth = width;
@@ -117,19 +107,17 @@ namespace OfflineDriverInstallerOOBE
                         {
                             case DISP_CHANGE_SUCCESSFUL:
                                 {
-                                    if (verbose)
-                                    {
-                                        Console.WriteLine(StringsAndConstants.CHANGING_RESOLUTION_SUCCESSFUL);
-                                        Console.WriteLine();
-                                    }
+                                    log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.CHANGING_RESOLUTION_SUCCESSFUL, string.Empty, StringsAndConstants.consoleOutCLI);
                                     return StringsAndConstants.resChangeSuccess;
                                 }
                             case DISP_CHANGE_RESTART:
                                 {
+                                    log.LogWrite(StringsAndConstants.LOG_WARNING, StringsAndConstants.REBOOT_CHANGING_RESOLUTION, string.Empty, StringsAndConstants.consoleOutCLI);
                                     return StringsAndConstants.resChangeReboot;
                                 }
                             default:
                                 {
+                                    log.LogWrite(StringsAndConstants.LOG_ERROR, StringsAndConstants.FAILED_CHANGING_RESOLUTION, string.Empty, StringsAndConstants.consoleOutCLI);
                                     return StringsAndConstants.resChangeFailed;
                                 }
                         }
@@ -140,11 +128,7 @@ namespace OfflineDriverInstallerOOBE
                     return StringsAndConstants.resChangeFailed;
                 }
             }
-            if (verbose)
-            {
-                Console.WriteLine(StringsAndConstants.CHANGING_RESOLUTION_UNNECESSARY);
-                Console.WriteLine();
-            }
+            log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.CHANGING_RESOLUTION_UNNECESSARY, string.Empty, StringsAndConstants.consoleOutCLI);
             return StringsAndConstants.resChangeSuccess;
         }
 
