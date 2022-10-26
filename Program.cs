@@ -19,13 +19,15 @@ namespace OfflineDriverInstallerOOBE
         private static LogGenerator log;
         static void Main(string[] args)
         {
-            if(HardwareInfo.getOSInfoAux() == StringsAndConstants.windows7 || HardwareInfo.getOSInfoAux() == StringsAndConstants.windows8 || HardwareInfo.getOSInfoAux() == StringsAndConstants.windows8_1)
+            //Checks of OS is W10 or W11
+            string osVer = HardwareInfo.getOSInfoAux();
+            if (osVer == StringsAndConstants.windows7 || osVer == StringsAndConstants.windows8 || osVer == StringsAndConstants.windows8_1)
             {
                 MessageBox.Show(StringsAndConstants.UNSUPPORTED_OS, StringsAndConstants.ERROR_WINDOWTITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Environment.Exit(StringsAndConstants.RETURN_ERROR);
             }
 
-            //Check if application is running
+            //Checks if application is running and kills any additional instance
             if (Process.GetProcessesByName(Path.GetFileNameWithoutExtension(Assembly.GetEntryAssembly().Location)).Count() > 1)
             {
                 MessageBox.Show(StringsAndConstants.ALREADY_RUNNING, StringsAndConstants.ERROR_WINDOWTITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -42,8 +44,10 @@ namespace OfflineDriverInstallerOOBE
 
             try
             {
+                //Parses the INI file
                 def = parser.ReadFile(StringsAndConstants.defFile);
 
+                //Reads the INI file section
                 var installDrvStr = def[StringsAndConstants.INI_SECTION_1][StringsAndConstants.INI_SECTION_1_1];
                 var cleanGarbStr = def[StringsAndConstants.INI_SECTION_1][StringsAndConstants.INI_SECTION_1_2];
                 var resChangeStr = def[StringsAndConstants.INI_SECTION_1][StringsAndConstants.INI_SECTION_1_3];
@@ -59,16 +63,21 @@ namespace OfflineDriverInstallerOOBE
 
                 bool fileExists = bool.Parse(MiscMethods.checkIfLogExists(logLocationStr));
 #if DEBUG
+                //Create a new log file (or append to a existing one)
                 log = new LogGenerator(Application.ProductName + " - v" + Application.ProductVersion + "-" + Resources.dev_status, logLocationStr, StringsAndConstants.LOG_FILENAME_OOBE + "-v" + Application.ProductVersion + "-" + Resources.dev_status + StringsAndConstants.LOG_FILE_EXT, StringsAndConstants.consoleOutCLI);
                 log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.LOG_DEBUG_MODE, string.Empty, StringsAndConstants.consoleOutCLI);
 #else
+                //Create a new log file (or append to a existing one)
                 log = new LogGenerator(Application.ProductName + " - v" + Application.ProductVersion, logLocationStr, StringsAndConstants.LOG_FILENAME_OOBE + "-v" + Application.ProductVersion + StringsAndConstants.LOG_FILE_EXT, StringsAndConstants.consoleOutCLI);
                 log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.LOG_RELEASE_MODE, string.Empty, StringsAndConstants.consoleOutCLI);
 #endif
+                //Checks if log file exists
                 if (!fileExists)
                     log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.LOGFILE_NOTEXISTS, string.Empty, StringsAndConstants.consoleOutCLI);
                 else
                     log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.LOGFILE_EXISTS, string.Empty, StringsAndConstants.consoleOutCLI);
+
+                log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.LOG_DEFFILE_FOUND, Directory.GetCurrentDirectory() + "\\" + StringsAndConstants.defFile, StringsAndConstants.consoleOutCLI);
 
                 log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.INI_SECTION_1_1, installDrvStr, StringsAndConstants.consoleOutCLI);
                 log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.INI_SECTION_1_2, cleanGarbStr, StringsAndConstants.consoleOutCLI);
@@ -88,7 +97,7 @@ namespace OfflineDriverInstallerOOBE
                     rebootBool = bool.Parse(rebootStr);
                     pauseBool = bool.Parse(pauseStr);
                 }
-                catch (Exception e)
+                catch (Exception e) //If definition file was malformed, but the logfile is created (log path is defined)
                 {
                     log.LogWrite(StringsAndConstants.LOG_ERROR, StringsAndConstants.PARAMETER_ERROR, e.Message, StringsAndConstants.consoleOutCLI);
                     Console.WriteLine(StringsAndConstants.KEY_FINISH);
@@ -97,24 +106,24 @@ namespace OfflineDriverInstallerOOBE
                     Environment.Exit(StringsAndConstants.RETURN_ERROR);
                 }
 
-                if (installDrvBool)
+                if (installDrvBool) //Installs drivers
                     PnpUtilCaller.installer(drvPathStr, log);
                 else
                     log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.NOT_INSTALLING_DRIVERS, string.Empty, StringsAndConstants.consoleOutCLI);
-                if (cleanGarbBool)
+                if (cleanGarbBool) //Cleans drivers that are not used
                     GarbageCleaner.cleanDirectories(drvPathStr, log);
                 else
                     log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.NOT_ERASING_GARBAGE, string.Empty, StringsAndConstants.consoleOutCLI);
-                if (resChangeBool)
+                if (resChangeBool) //Changes screen resolution
                     PrmaryScreenResolution.ChangeResolution(Convert.ToInt32(resWidthStr), Convert.ToInt32(resHeightStr), log);
                 else
                     log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.NOT_CHANGING_RESOLUTION, string.Empty, StringsAndConstants.consoleOutCLI);
-                if (rebootBool)
+                if (rebootBool) //Reboots the computer
                     Process.Start(StringsAndConstants.SHUTDOWN_CMD_1, StringsAndConstants.SHUTDOWN_CMD_2);
                 else
                     log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.NOT_REBOOTING, string.Empty, StringsAndConstants.consoleOutCLI);
                 log.LogWrite(StringsAndConstants.LOG_MISC, StringsAndConstants.LOG_SEPARATOR_SMALL, string.Empty, StringsAndConstants.consoleOutCLI);
-                if (pauseBool)
+                if (pauseBool) //Pauses the program at the end
                 {
                     Console.WriteLine();
                     Console.WriteLine(StringsAndConstants.KEY_FINISH);
@@ -122,14 +131,14 @@ namespace OfflineDriverInstallerOOBE
                     Environment.Exit(StringsAndConstants.RETURN_SUCCESS);
                 }
             }
-            catch(ParsingException e)
+            catch(ParsingException e) //If definition file was not found
             {
                 Console.WriteLine(StringsAndConstants.LOG_DEFFILE_NOT_FOUND + ": " + e.Message);
                 Console.WriteLine(StringsAndConstants.KEY_FINISH);
                 Console.ReadLine();
                 Environment.Exit(StringsAndConstants.RETURN_ERROR);
             }
-            catch (FormatException e)
+            catch (FormatException e) //If definition file was malformed, but the logfile is not created (log path is undefined)
             {
                 Console.WriteLine(StringsAndConstants.PARAMETER_ERROR + ": " + e.Message);
                 Console.WriteLine(StringsAndConstants.KEY_FINISH);

@@ -72,7 +72,7 @@ namespace OfflineDriverInstallerOOBE
         public static List<string> resListW;
         public static List<string> resListH;
 
-
+        //Sets screen resolution and then changes it
         public static string ChangeResolution(int width, int height, LogGenerator log)
         {
             getResolutions();
@@ -132,6 +132,7 @@ namespace OfflineDriverInstallerOOBE
             return StringsAndConstants.resChangeSuccess;
         }
 
+        //Gets screen resolutions
         private static void getResolutions()
         {
             DEVMODE1 vDevMode = new DEVMODE1();

@@ -9,19 +9,21 @@ namespace OfflineDriverInstallerOOBE
     {
         public static void cleanDirectories(string path, LogGenerator log)
         {
-            string model = HardwareInfo.GetModel();
+            string model = HardwareInfo.GetModel(); //Checks for hardware model
             if (model == StringsAndConstants.ToBeFilledByOEM || model == "")
-                model = HardwareInfo.GetModelAlt();
+                model = HardwareInfo.GetModelAlt(); //Checks for hardware model (alt method)
             string pathExt = path + HardwareInfo.GetBIOSType() + "\\" + HardwareInfo.getOSVersion() + "\\" + HardwareInfo.getOSArchAlt() + "\\";
             DirectoryInfo directory = new DirectoryInfo(pathExt);
 
             try
             {
+                //Check if driver directory exists
                 if (!Directory.Exists(pathExt))
                     throw new DirectoryNotFoundException(StringsAndConstants.DIRECTORY_DO_NOT_EXIST);
 
                 log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.ERASING_GARBAGE, string.Empty, StringsAndConstants.consoleOutCLI);
 
+                //Deletes directories other than the model's one
                 foreach (DirectoryInfo dir in directory.GetDirectories())
                 {
                     if (dir.Name != model)
