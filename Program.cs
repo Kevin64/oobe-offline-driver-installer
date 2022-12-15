@@ -35,6 +35,7 @@ namespace OfflineDriverInstallerOOBE
             }
 
             IniData def = null;
+            bool addDrvBool = false;
             bool installDrvBool = false;
             bool cleanGarbBool = false;
             bool resChangeBool = false;
@@ -48,6 +49,7 @@ namespace OfflineDriverInstallerOOBE
                 def = parser.ReadFile(StringsAndConstants.defFile);
 
                 //Reads the INI file section
+                var addDrvStr = def[StringsAndConstants.INI_SECTION_1][StringsAndConstants.INI_SECTION_1_10];
                 var installDrvStr = def[StringsAndConstants.INI_SECTION_1][StringsAndConstants.INI_SECTION_1_1];
                 var cleanGarbStr = def[StringsAndConstants.INI_SECTION_1][StringsAndConstants.INI_SECTION_1_2];
                 var resChangeStr = def[StringsAndConstants.INI_SECTION_1][StringsAndConstants.INI_SECTION_1_3];
@@ -79,6 +81,7 @@ namespace OfflineDriverInstallerOOBE
 
                 log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.LOG_DEFFILE_FOUND, Directory.GetCurrentDirectory() + "\\" + StringsAndConstants.defFile, StringsAndConstants.consoleOutCLI);
 
+                log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.INI_SECTION_1_10, addDrvStr, StringsAndConstants.consoleOutCLI);
                 log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.INI_SECTION_1_1, installDrvStr, StringsAndConstants.consoleOutCLI);
                 log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.INI_SECTION_1_2, cleanGarbStr, StringsAndConstants.consoleOutCLI);
                 log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.INI_SECTION_1_3, resChangeStr, StringsAndConstants.consoleOutCLI);
@@ -91,6 +94,7 @@ namespace OfflineDriverInstallerOOBE
 
                 try
                 {
+                    addDrvBool = bool.Parse(addDrvStr);
                     installDrvBool = bool.Parse(installDrvStr);
                     cleanGarbBool = bool.Parse(cleanGarbStr);
                     resChangeBool = bool.Parse(resChangeStr);
@@ -106,8 +110,13 @@ namespace OfflineDriverInstallerOOBE
                     Environment.Exit(StringsAndConstants.RETURN_ERROR);
                 }
 
-                if (installDrvBool) //Installs drivers
-                    PnpUtilCaller.installer(drvPathStr, log);
+                if (addDrvBool) //Adds/Installs drivers
+                {
+                    if (installDrvBool) //Adds and installs drivers
+                        PnpUtilCaller.installer(drvPathStr, true, log);
+                    else //Just adds drivers
+                        PnpUtilCaller.installer(drvPathStr, false, log);
+                }
                 else
                     log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.NOT_INSTALLING_DRIVERS, string.Empty, StringsAndConstants.consoleOutCLI);
                 if (cleanGarbBool) //Cleans drivers that are not used

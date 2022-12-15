@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
 using ConstantsDLL;
 using HardwareInfoDLL;
@@ -9,22 +8,28 @@ namespace OfflineDriverInstallerOOBE
 {
     internal static class PnpUtilCaller
     {
-		public static void installer(string path, LogGenerator log)
+		public static void installer(string path, bool install, LogGenerator log)
         {
-			string model = HardwareInfo.GetModel(); //Checks for hardware model
+            string inst = string.Empty;
+            string model = HardwareInfo.GetModel(); //Checks for hardware model
 			if (model == StringsAndConstants.ToBeFilledByOEM || model == "")
 				model = HardwareInfo.GetModelAlt(); //Checks for hardware model (alt method)
+            if (install)
+                inst = " /install";
             string type = HardwareInfo.GetBIOSType(); //Checks for firmware type
             string osVersion = HardwareInfo.getOSVersion(); //Checks for OS version
             string osArch = HardwareInfo.getOSArchAlt(); //Checks for OS architecture
             string pathExt = path + type + "\\" + osVersion + "\\" + osArch + "\\" + model + "\\";
-            string args = "/add-driver " + "\"" + pathExt + "*" + "\"" + " /subdirs /install";
+            string args = "/add-driver " + "\"" + pathExt + "*" + "\"" + " /subdirs" + inst;
 
             log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.HW_MODEL, model, StringsAndConstants.consoleOutCLI);
             log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.OS_VERSION, osVersion, StringsAndConstants.consoleOutCLI);
             log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.OS_ARCH, osArch, StringsAndConstants.consoleOutCLI);
             log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.FIRMWARE_TYPE, type, StringsAndConstants.consoleOutCLI);
-            log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.INSTALLING, string.Empty, StringsAndConstants.consoleOutCLI);
+            if(install)
+                log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.ADDING_INSTALLING, string.Empty, StringsAndConstants.consoleOutCLI);
+            else
+                log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.ADDING, string.Empty, StringsAndConstants.consoleOutCLI);
 
             try
 			{
@@ -40,7 +45,12 @@ namespace OfflineDriverInstallerOOBE
 				process.StartInfo.UseShellExecute = false;
 				process.StartInfo.CreateNoWindow = true;
 				process.Start();
-				string output = process.StandardOutput.ReadToEnd();
+                while (!process.StandardOutput.EndOfStream)
+                {
+                    var output = process.StandardOutput.ReadLine();
+                    if(output != string.Empty)
+                        log.LogWrite(StringsAndConstants.LOG_INFO, output, string.Empty, StringsAndConstants.consoleOutCLI);
+                }                
 				process.WaitForExit();
 				process.Close();
 
