@@ -1,39 +1,47 @@
-﻿using System.IO;
-using ConstantsDLL;
-using HardwareInfoDLL;
+﻿using HardwareInfoDLL;
 using LogGeneratorDLL;
+using OfflineDriverInstallerOOBE.Properties;
+using System;
+using System.IO;
 
 namespace OfflineDriverInstallerOOBE
 {
     internal static class GarbageCleaner
     {
-        public static void cleanDirectories(string path, LogGenerator log)
+        public static void CleanDirectories(string path, LogGenerator log)
         {
             string model = HardwareInfo.GetModel(); //Checks for hardware model
-            if (model == StringsAndConstants.ToBeFilledByOEM || model == "")
+            if (model == ConstantsDLL.Properties.Resources.ToBeFilledByOEM || model == string.Empty)
+            {
                 model = HardwareInfo.GetModelAlt(); //Checks for hardware model (alt method)
-            string pathExt = path + HardwareInfo.GetBIOSType() + "\\" + HardwareInfo.getOSVersion() + "\\" + HardwareInfo.getOSArchAlt() + "\\";
+            }
+
+            string pathExt = path + HardwareInfo.GetBIOSType() + "\\" + HardwareInfo.GetOSVersion() + "\\" + HardwareInfo.GetOSArchAlt() + "\\";
             DirectoryInfo directory = new DirectoryInfo(pathExt);
 
             try
             {
                 //Check if driver directory exists
                 if (!Directory.Exists(pathExt))
-                    throw new DirectoryNotFoundException(StringsAndConstants.DIRECTORY_DO_NOT_EXIST);
+                {
+                    throw new DirectoryNotFoundException(Strings.DIRECTORY_DO_NOT_EXIST);
+                }
 
-                log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.ERASING_GARBAGE, string.Empty, StringsAndConstants.consoleOutCLI);
+                log.LogWrite(Convert.ToInt32(ConstantsDLL.Properties.Resources.LOG_INFO), Strings.ERASING_GARBAGE, string.Empty, Convert.ToBoolean(ConstantsDLL.Properties.Resources.consoleOutCLI));
 
                 //Deletes directories other than the model's one
                 foreach (DirectoryInfo dir in directory.GetDirectories())
                 {
                     if (dir.Name != model)
+                    {
                         dir.Delete(true);
+                    }
                 }
-                log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.ERASING_SUCCESSFUL, string.Empty, StringsAndConstants.consoleOutCLI);
+                log.LogWrite(Convert.ToInt32(ConstantsDLL.Properties.Resources.LOG_INFO), Strings.ERASING_SUCCESSFUL, string.Empty, Convert.ToBoolean(ConstantsDLL.Properties.Resources.consoleOutCLI));
             }
-            catch(DirectoryNotFoundException e)
+            catch (DirectoryNotFoundException e)
             {
-                log.LogWrite(StringsAndConstants.LOG_ERROR, pathExt, e.Message, StringsAndConstants.consoleOutCLI);
+                log.LogWrite(Convert.ToInt32(ConstantsDLL.Properties.Resources.LOG_ERROR), pathExt, e.Message, Convert.ToBoolean(ConstantsDLL.Properties.Resources.consoleOutCLI));
             }
         }
     }

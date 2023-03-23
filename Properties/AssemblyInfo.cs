@@ -1,16 +1,15 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // As informações gerais sobre um assembly são controladas por
 // conjunto de atributos. Altere estes valores de atributo para modificar as informações
 // associadas a um assembly.
-[assembly: AssemblyTitle("Instalador de Drivers Offline - OOBE")]
+[assembly: AssemblyTitle("OfflineDriverInstaller")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Universidade Federal de Santa Maria")]
-[assembly: AssemblyProduct("Instalador de Drivers Offline - OOBE")]
-[assembly: AssemblyCopyright("Copyright UFSM © 2022")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("OfflineDriverInstaller")]
+[assembly: AssemblyCopyright("Copyright © 2023 Kevin Vinícius Teixeira Costa")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +31,5 @@ using System.Runtime.InteropServices;
 // É possível especificar todos os valores ou usar como padrão os Números de Build e da Revisão
 // usando o "*" como mostrado abaixo:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.4.0.2212")]
-[assembly: AssemblyFileVersion("1.4.0.2212")]
+[assembly: AssemblyVersion("2.0.0.0")]
+[assembly: AssemblyFileVersion("2.0.0.0")]

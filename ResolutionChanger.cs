@@ -1,9 +1,9 @@
-﻿using System;
+﻿using LogGeneratorDLL;
+using OfflineDriverInstallerOOBE.Properties;
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using ConstantsDLL;
-using LogGeneratorDLL;
 
 // Code borrowed from the internets to change screen resolution
 namespace OfflineDriverInstallerOOBE
@@ -75,20 +75,20 @@ namespace OfflineDriverInstallerOOBE
         //Sets screen resolution and then changes it
         public static string ChangeResolution(int width, int height, LogGenerator log)
         {
-            getResolutions();
+            GetResolutions();
             string screenWidth = Screen.PrimaryScreen.Bounds.Width.ToString();
             string screenHeight = Screen.PrimaryScreen.Bounds.Height.ToString();
             int sW = Convert.ToInt32(screenWidth);
             int sH = Convert.ToInt32(screenHeight);
 
-            log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.CHECKING_AVAILABLE_RESOLUTIONS, string.Empty, StringsAndConstants.consoleOutCLI);
-            log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.CHECKING_RESOLUTION, sW + "x" + sH, StringsAndConstants.consoleOutCLI);
+            log.LogWrite(Convert.ToInt32(ConstantsDLL.Properties.Resources.LOG_INFO), Strings.CHECKING_AVAILABLE_RESOLUTIONS, string.Empty, Convert.ToBoolean(ConstantsDLL.Properties.Resources.consoleOutCLI));
+            log.LogWrite(Convert.ToInt32(ConstantsDLL.Properties.Resources.LOG_INFO), Strings.CHECKING_RESOLUTION, sW + "x" + sH, Convert.ToBoolean(ConstantsDLL.Properties.Resources.consoleOutCLI));
 
             DEVMODE1 dm = GetDevMode1();
 
             if (resListW.Contains(width.ToString()) && resListH.Contains(height.ToString()) && sW < width)
             {
-                log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.CHANGING_RESOLUTION, string.Empty, StringsAndConstants.consoleOutCLI);
+                log.LogWrite(Convert.ToInt32(ConstantsDLL.Properties.Resources.LOG_INFO), Strings.CHANGING_RESOLUTION, string.Empty, Convert.ToBoolean(ConstantsDLL.Properties.Resources.consoleOutCLI));
                 if (0 != EnumDisplaySettings(null, ENUM_CURRENT_SETTINGS, ref dm))
                 {
                     dm.dmPelsWidth = width;
@@ -98,7 +98,7 @@ namespace OfflineDriverInstallerOOBE
 
                     if (iRet == DISP_CHANGE_FAILED)
                     {
-                        return StringsAndConstants.resChangeFailed;
+                        return Strings.FAILED_CHANGING_RESOLUTION;
                     }
                     else
                     {
@@ -107,33 +107,33 @@ namespace OfflineDriverInstallerOOBE
                         {
                             case DISP_CHANGE_SUCCESSFUL:
                                 {
-                                    log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.CHANGING_RESOLUTION_SUCCESSFUL, string.Empty, StringsAndConstants.consoleOutCLI);
-                                    return StringsAndConstants.resChangeSuccess;
+                                    log.LogWrite(Convert.ToInt32(ConstantsDLL.Properties.Resources.LOG_INFO), Strings.CHANGING_RESOLUTION_SUCCESSFUL, string.Empty, Convert.ToBoolean(ConstantsDLL.Properties.Resources.consoleOutCLI));
+                                    return Strings.CHANGING_RESOLUTION_SUCCESSFUL;
                                 }
                             case DISP_CHANGE_RESTART:
                                 {
-                                    log.LogWrite(StringsAndConstants.LOG_WARNING, StringsAndConstants.REBOOT_CHANGING_RESOLUTION, string.Empty, StringsAndConstants.consoleOutCLI);
-                                    return StringsAndConstants.resChangeReboot;
+                                    log.LogWrite(Convert.ToInt32(ConstantsDLL.Properties.Resources.LOG_WARNING), Strings.REBOOT_CHANGING_RESOLUTION, string.Empty, Convert.ToBoolean(ConstantsDLL.Properties.Resources.consoleOutCLI));
+                                    return Strings.REBOOT_CHANGING_RESOLUTION;
                                 }
                             default:
                                 {
-                                    log.LogWrite(StringsAndConstants.LOG_ERROR, StringsAndConstants.FAILED_CHANGING_RESOLUTION, string.Empty, StringsAndConstants.consoleOutCLI);
-                                    return StringsAndConstants.resChangeFailed;
+                                    log.LogWrite(Convert.ToInt32(ConstantsDLL.Properties.Resources.LOG_ERROR), Strings.FAILED_CHANGING_RESOLUTION, string.Empty, Convert.ToBoolean(ConstantsDLL.Properties.Resources.consoleOutCLI));
+                                    return Strings.FAILED_CHANGING_RESOLUTION;
                                 }
                         }
                     }
                 }
                 else
                 {
-                    return StringsAndConstants.resChangeFailed;
+                    return Strings.FAILED_CHANGING_RESOLUTION;
                 }
             }
-            log.LogWrite(StringsAndConstants.LOG_INFO, StringsAndConstants.CHANGING_RESOLUTION_UNNECESSARY, string.Empty, StringsAndConstants.consoleOutCLI);
-            return StringsAndConstants.resChangeSuccess;
+            log.LogWrite(Convert.ToInt32(ConstantsDLL.Properties.Resources.LOG_INFO), Strings.CHANGING_RESOLUTION_UNNECESSARY, string.Empty, Convert.ToBoolean(ConstantsDLL.Properties.Resources.consoleOutCLI));
+            return Strings.CHANGING_RESOLUTION_SUCCESSFUL;
         }
 
         //Gets screen resolutions
-        private static void getResolutions()
+        private static void GetResolutions()
         {
             DEVMODE1 vDevMode = new DEVMODE1();
             resListW = new List<string>();
@@ -149,9 +149,11 @@ namespace OfflineDriverInstallerOOBE
 
         private static DEVMODE1 GetDevMode1()
         {
-            DEVMODE1 dm = new DEVMODE1();
-            dm.dmDeviceName = new String(new char[32]);
-            dm.dmFormName = new String(new char[32]);
+            DEVMODE1 dm = new DEVMODE1
+            {
+                dmDeviceName = new string(new char[32]),
+                dmFormName = new string(new char[32])
+            };
             dm.dmSize = (short)Marshal.SizeOf(dm);
             return dm;
         }
