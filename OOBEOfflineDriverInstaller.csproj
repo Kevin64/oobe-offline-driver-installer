@@ -6,9 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{EAA434CD-A72C-4D58-A703-DE09AA83E0D1}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>OfflineDriverInstallerOOBE</RootNamespace>
-    <AssemblyName Condition="'$(Configuration)'=='Debug'">OfflineDriverInstallerOOBE-SNAPSHOT</AssemblyName>
-    <AssemblyName Condition="'$(Configuration)'=='Release'">OfflineDriverInstallerOOBE</AssemblyName>
+    <RootNamespace>OOBEOfflineDriverInstaller</RootNamespace>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -130,6 +128,6 @@
     $(PostBuildEventDependsOn);
     PostBuildMacros;
   </PostBuildEventDependsOn>
-    <PostBuildEvent>xcopy /Y "$(TargetDir)\..\generic-settings\definitions.ini" &amp; if $(ConfigurationName) == Release del /F /Q $(TargetName)-v@(VersionNumber)$(TargetExt) &amp; ren $(TargetFileName) $(TargetName)-v@(VersionNumber)$(TargetExt) &amp; del /F /Q *.xml &amp; del /F /Q ..\zip\github\$(TargetName)-v@(VersionNumber).7z &amp; 7z a -r ..\zip\github\$(TargetName)-v@(VersionNumber).7z *</PostBuildEvent>
+    <PostBuildEvent>xcopy /Y "$(TargetDir)..\generic-settings\definitions.ini" &amp; if $(ConfigurationName) == Release del /F /Q $(TargetName)-v@(VersionNumber)$(TargetExt) &amp; ren $(TargetFileName) $(TargetName)-v@(VersionNumber)$(TargetExt) &amp; del /F /Q *.xml &amp; del /F /Q ..\zip\github\$(TargetName)-v@(VersionNumber).7z &amp; 7z a -r ..\zip\github\$(TargetName)-v@(VersionNumber).7z *</PostBuildEvent>
   </PropertyGroup>
 </Project>

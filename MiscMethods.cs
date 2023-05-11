@@ -1,10 +1,10 @@
-﻿using OfflineDriverInstallerOOBE.Properties;
+﻿using OOBEOfflineDriverInstaller.Properties;
 using System;
 using System.IO;
 
 using System.Windows.Forms;
 
-namespace OfflineDriverInstallerOOBE
+namespace OOBEOfflineDriverInstaller
 {
     internal class MiscMethods
     {

@@ -1,12 +1,12 @@
 ﻿using LogGeneratorDLL;
-using OfflineDriverInstallerOOBE.Properties;
+using OOBEOfflineDriverInstaller.Properties;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 // Code borrowed from the internets to change screen resolution
-namespace OfflineDriverInstallerOOBE
+namespace OOBEOfflineDriverInstaller
 {
     [StructLayout(LayoutKind.Sequential)]
     public struct DEVMODE1

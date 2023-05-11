@@ -1,11 +1,11 @@
 ﻿using HardwareInfoDLL;
 using LogGeneratorDLL;
-using OfflineDriverInstallerOOBE.Properties;
+using OOBEOfflineDriverInstaller.Properties;
 using System;
 using System.Diagnostics;
 using System.IO;
 
-namespace OfflineDriverInstallerOOBE
+namespace OOBEOfflineDriverInstaller
 {
     internal static class PnpUtilCaller
     {

@@ -3,7 +3,7 @@ using IniParser;
 using IniParser.Exceptions;
 using IniParser.Model;
 using LogGeneratorDLL;
-using OfflineDriverInstallerOOBE.Properties;
+using OOBEOfflineDriverInstaller.Properties;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -11,7 +11,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace OfflineDriverInstallerOOBE
+namespace OOBEOfflineDriverInstaller
 {
     internal class Program
     {
