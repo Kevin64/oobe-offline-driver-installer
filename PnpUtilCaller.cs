@@ -23,7 +23,7 @@ namespace OfflineDriverInstallerOOBE
                 inst = " /install";
             }
 
-            string type = HardwareInfo.GetBIOSType(); //Checks for firmware type
+            string type = HardwareInfo.GetFwType(); //Checks for firmware type
             string osVersion = HardwareInfo.GetOSVersion(); //Checks for OS version
             string osArch = HardwareInfo.GetOSArchAlt(); //Checks for OS architecture
             string pathExt = path + type + "\\" + osVersion + "\\" + osArch + "\\" + model + "\\";

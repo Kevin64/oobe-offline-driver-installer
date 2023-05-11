@@ -16,7 +16,7 @@ namespace OfflineDriverInstallerOOBE
                 model = HardwareInfo.GetModelAlt(); //Checks for hardware model (alt method)
             }
 
-            string pathExt = path + HardwareInfo.GetBIOSType() + "\\" + HardwareInfo.GetOSVersion() + "\\" + HardwareInfo.GetOSArchAlt() + "\\";
+            string pathExt = path + HardwareInfo.GetFwType() + "\\" + HardwareInfo.GetOSVersion() + "\\" + HardwareInfo.GetOSArchAlt() + "\\";
             DirectoryInfo directory = new DirectoryInfo(pathExt);
 
             try

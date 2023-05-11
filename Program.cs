@@ -20,7 +20,7 @@ namespace OfflineDriverInstallerOOBE
         private static void Main(string[] args)
         {
             //Checks of OS is W10 or W11
-            string osVer = HardwareInfo.GetOSInfoAux();
+            string osVer = HardwareInfo.GetWinVersion();
             if (osVer == ConstantsDLL.Properties.Resources.windows7 || osVer == ConstantsDLL.Properties.Resources.windows8 || osVer == ConstantsDLL.Properties.Resources.windows8_1)
             {
                 MessageBox.Show(Strings.UNSUPPORTED_OS, ConstantsDLL.Properties.Strings.ERROR_WINDOWTITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
