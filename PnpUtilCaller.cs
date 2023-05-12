@@ -13,19 +13,31 @@ namespace OOBEOfflineDriverInstaller
         {
             string inst = string.Empty;
             string model = HardwareInfo.GetModel(); //Checks for hardware model
+            string type = HardwareInfo.GetFwType(); //Checks for firmware type
+            string osVersion = HardwareInfo.GetOSVersion(); //Checks for OS version
+            string osArch = HardwareInfo.GetOSArchAlt(); //Checks for OS architecture
+
             if (model == ConstantsDLL.Properties.Resources.ToBeFilledByOEM || model == string.Empty)
             {
                 model = HardwareInfo.GetModelAlt(); //Checks for hardware model (alt method)
             }
-
             if (install)
             {
                 inst = " /install";
             }
+            if (type == "0")
+            {
+                type = ConstantsDLL.Properties.Resources.fwTypeBIOS;
+            }
+            else if (type == "1")
+            {
+                type = ConstantsDLL.Properties.Resources.fwTypeUEFI;
+            }
+            if (osArch.Contains("64"))
+            {
+                osArch = "x64";
+            }
 
-            string type = HardwareInfo.GetFwType(); //Checks for firmware type
-            string osVersion = HardwareInfo.GetOSVersion(); //Checks for OS version
-            string osArch = HardwareInfo.GetOSArchAlt(); //Checks for OS architecture
             string pathExt = path + type + "\\" + osVersion + "\\" + osArch + "\\" + model + "\\";
             string args = "/add-driver " + "\"" + pathExt + "*" + "\"" + " /subdirs" + inst;
 

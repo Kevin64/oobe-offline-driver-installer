@@ -11,12 +11,27 @@ namespace OOBEOfflineDriverInstaller
         public static void CleanDirectories(string path, LogGenerator log)
         {
             string model = HardwareInfo.GetModel(); //Checks for hardware model
+            string type = HardwareInfo.GetFwType(); //Checks for firmware type
+            string osVersion = HardwareInfo.GetOSVersion(); //Checks for OS version
+            string osArch = HardwareInfo.GetOSArchAlt(); //Checks for OS architecture
             if (model == ConstantsDLL.Properties.Resources.ToBeFilledByOEM || model == string.Empty)
             {
                 model = HardwareInfo.GetModelAlt(); //Checks for hardware model (alt method)
             }
+            if (type == "0")
+            {
+                type = ConstantsDLL.Properties.Resources.fwTypeBIOS;
+            }
+            else if (type == "1")
+            {
+                type = ConstantsDLL.Properties.Resources.fwTypeUEFI;
+            }
+            if (osArch.Contains("64"))
+            {
+                osArch = "x64";
+            }
 
-            string pathExt = path + HardwareInfo.GetFwType() + "\\" + HardwareInfo.GetOSVersion() + "\\" + HardwareInfo.GetOSArchAlt() + "\\";
+            string pathExt = path + type + "\\" + osVersion + "\\" + osArch + "\\";
             DirectoryInfo directory = new DirectoryInfo(pathExt);
 
             try
