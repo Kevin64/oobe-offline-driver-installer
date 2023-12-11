@@ -81,14 +81,14 @@ namespace OOBEOfflineDriverInstaller
             int sW = Convert.ToInt32(screenWidth);
             int sH = Convert.ToInt32(screenHeight);
 
-            log.LogWrite(Convert.ToInt32(ConstantsDLL.Properties.Resources.LOG_INFO), Strings.CHECKING_AVAILABLE_RESOLUTIONS, string.Empty, Convert.ToBoolean(ConstantsDLL.Properties.Resources.consoleOutCLI));
-            log.LogWrite(Convert.ToInt32(ConstantsDLL.Properties.Resources.LOG_INFO), Strings.CHECKING_RESOLUTION, sW + "x" + sH, Convert.ToBoolean(ConstantsDLL.Properties.Resources.consoleOutCLI));
+            log.LogWrite(Convert.ToInt32(LogGenerator.LOG_SEVERITY.LOG_INFO), OodiStrings.CHECKING_AVAILABLE_RESOLUTIONS, string.Empty, Convert.ToBoolean(ConstantsDLL.Properties.GenericResources.CONSOLE_OUT_CLI));
+            log.LogWrite(Convert.ToInt32(LogGenerator.LOG_SEVERITY.LOG_INFO), OodiStrings.CHECKING_RESOLUTION, sW + "x" + sH, Convert.ToBoolean(ConstantsDLL.Properties.GenericResources.CONSOLE_OUT_CLI));
 
             DEVMODE1 dm = GetDevMode1();
 
             if (resListW.Contains(width.ToString()) && resListH.Contains(height.ToString()) && sW < width)
             {
-                log.LogWrite(Convert.ToInt32(ConstantsDLL.Properties.Resources.LOG_INFO), Strings.CHANGING_RESOLUTION, string.Empty, Convert.ToBoolean(ConstantsDLL.Properties.Resources.consoleOutCLI));
+                log.LogWrite(Convert.ToInt32(LogGenerator.LOG_SEVERITY.LOG_INFO), OodiStrings.CHANGING_RESOLUTION, string.Empty, Convert.ToBoolean(ConstantsDLL.Properties.GenericResources.CONSOLE_OUT_CLI));
                 if (0 != EnumDisplaySettings(null, ENUM_CURRENT_SETTINGS, ref dm))
                 {
                     dm.dmPelsWidth = width;
@@ -98,7 +98,7 @@ namespace OOBEOfflineDriverInstaller
 
                     if (iRet == DISP_CHANGE_FAILED)
                     {
-                        return Strings.FAILED_CHANGING_RESOLUTION;
+                        return OodiStrings.FAILED_CHANGING_RESOLUTION;
                     }
                     else
                     {
@@ -107,29 +107,29 @@ namespace OOBEOfflineDriverInstaller
                         {
                             case DISP_CHANGE_SUCCESSFUL:
                                 {
-                                    log.LogWrite(Convert.ToInt32(ConstantsDLL.Properties.Resources.LOG_INFO), Strings.CHANGING_RESOLUTION_SUCCESSFUL, string.Empty, Convert.ToBoolean(ConstantsDLL.Properties.Resources.consoleOutCLI));
-                                    return Strings.CHANGING_RESOLUTION_SUCCESSFUL;
+                                    log.LogWrite(Convert.ToInt32(LogGenerator.LOG_SEVERITY.LOG_INFO), OodiStrings.CHANGING_RESOLUTION_SUCCESSFUL, string.Empty, Convert.ToBoolean(ConstantsDLL.Properties.GenericResources.CONSOLE_OUT_CLI));
+                                    return OodiStrings.CHANGING_RESOLUTION_SUCCESSFUL;
                                 }
                             case DISP_CHANGE_RESTART:
                                 {
-                                    log.LogWrite(Convert.ToInt32(ConstantsDLL.Properties.Resources.LOG_WARNING), Strings.REBOOT_CHANGING_RESOLUTION, string.Empty, Convert.ToBoolean(ConstantsDLL.Properties.Resources.consoleOutCLI));
-                                    return Strings.REBOOT_CHANGING_RESOLUTION;
+                                    log.LogWrite(Convert.ToInt32(LogGenerator.LOG_SEVERITY.LOG_WARNING), OodiStrings.REBOOT_CHANGING_RESOLUTION, string.Empty, Convert.ToBoolean(ConstantsDLL.Properties.GenericResources.CONSOLE_OUT_CLI));
+                                    return OodiStrings.REBOOT_CHANGING_RESOLUTION;
                                 }
                             default:
                                 {
-                                    log.LogWrite(Convert.ToInt32(ConstantsDLL.Properties.Resources.LOG_ERROR), Strings.FAILED_CHANGING_RESOLUTION, string.Empty, Convert.ToBoolean(ConstantsDLL.Properties.Resources.consoleOutCLI));
-                                    return Strings.FAILED_CHANGING_RESOLUTION;
+                                    log.LogWrite(Convert.ToInt32(LogGenerator.LOG_SEVERITY.LOG_ERROR), OodiStrings.FAILED_CHANGING_RESOLUTION, string.Empty, Convert.ToBoolean(ConstantsDLL.Properties.GenericResources.CONSOLE_OUT_CLI));
+                                    return OodiStrings.FAILED_CHANGING_RESOLUTION;
                                 }
                         }
                     }
                 }
                 else
                 {
-                    return Strings.FAILED_CHANGING_RESOLUTION;
+                    return OodiStrings.FAILED_CHANGING_RESOLUTION;
                 }
             }
-            log.LogWrite(Convert.ToInt32(ConstantsDLL.Properties.Resources.LOG_INFO), Strings.CHANGING_RESOLUTION_UNNECESSARY, string.Empty, Convert.ToBoolean(ConstantsDLL.Properties.Resources.consoleOutCLI));
-            return Strings.CHANGING_RESOLUTION_SUCCESSFUL;
+            log.LogWrite(Convert.ToInt32(LogGenerator.LOG_SEVERITY.LOG_INFO), OodiStrings.CHANGING_RESOLUTION_UNNECESSARY, string.Empty, Convert.ToBoolean(ConstantsDLL.Properties.GenericResources.CONSOLE_OUT_CLI));
+            return OodiStrings.CHANGING_RESOLUTION_SUCCESSFUL;
         }
 
         //Gets screen resolutions

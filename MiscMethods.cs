@@ -1,4 +1,4 @@
-﻿using OOBEOfflineDriverInstaller.Properties;
+﻿using ConstantsDLL.Properties;
 using System;
 using System.IO;
 
@@ -15,10 +15,10 @@ namespace OOBEOfflineDriverInstaller
             {
 #if DEBUG
                 //Checks if log directory exists
-                b = File.Exists(path + ConstantsDLL.Properties.Resources.LOG_FILENAME_OOBE + "-v" + Application.ProductVersion + "-" + Resources.dev_status + ConstantsDLL.Properties.Resources.LOG_FILE_EXT);
+                b = File.Exists(path + ConstantsDLL.Properties.GenericResources.LOG_FILENAME_OOBE + "-v" + Application.ProductVersion + "-" + GenericResources.DEV_STATUS_BETA + ConstantsDLL.Properties.GenericResources.LOG_FILE_EXT);
 #else
                 //Checks if log file exists
-                b = File.Exists(path + ConstantsDLL.Properties.Resources.LOG_FILENAME_OOBE + "-v" + Application.ProductVersion + ConstantsDLL.Properties.Resources.LOG_FILE_EXT);
+                b = File.Exists(path + ConstantsDLL.Properties.GenericResources.LOG_FILENAME_OOBE + "-v" + Application.ProductVersion + ConstantsDLL.Properties.GenericResources.LOG_FILE_EXT);
 #endif
                 //If not, creates a new directory
                 if (!b)

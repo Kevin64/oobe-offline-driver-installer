@@ -117,7 +117,104 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="dev_status" xml:space="preserve">
-    <value>beta</value>
+  <data name="aaaPROJECTaaa" xml:space="preserve">
+    <value />
+    <comment>OfflineDriverInstaller.Strings.PT</comment>
+  </data>
+  <data name="ADDING" xml:space="preserve">
+    <value>Apenas adicionando drivers</value>
+  </data>
+  <data name="ADDING_INSTALLING" xml:space="preserve">
+    <value>Adicionando e instalando drivers</value>
+  </data>
+  <data name="ADD_DRIVERS" xml:space="preserve">
+    <value>Adicionar drivers</value>
+  </data>
+  <data name="CHANGE_RESOLUTION" xml:space="preserve">
+    <value>Alterar resolução</value>
+  </data>
+  <data name="CHANGING_RESOLUTION" xml:space="preserve">
+    <value>Alterando resolução</value>
+  </data>
+  <data name="CHANGING_RESOLUTION_SUCCESSFUL" xml:space="preserve">
+    <value>Resolução alterada com sucesso</value>
+  </data>
+  <data name="CHANGING_RESOLUTION_UNNECESSARY" xml:space="preserve">
+    <value>Sem necessidade de alterar resolução</value>
+  </data>
+  <data name="CHECKING_AVAILABLE_RESOLUTIONS" xml:space="preserve">
+    <value>Verificando resoluções disponíveis</value>
+  </data>
+  <data name="CHECKING_RESOLUTION" xml:space="preserve">
+    <value>Verificando resolução atual</value>
+  </data>
+  <data name="DIRECTORY_DO_NOT_EXIST" xml:space="preserve">
+    <value>Repositório de drivers não encontrado</value>
+  </data>
+  <data name="DRIVER_INSTALL_FAILED" xml:space="preserve">
+    <value>Falha na instalação dos drivers</value>
+  </data>
+  <data name="DRIVER_PATH" xml:space="preserve">
+    <value>Caminho de drivers</value>
+  </data>
+  <data name="ERASING_GARBAGE" xml:space="preserve">
+    <value>Apagando drivers não utilizados</value>
+  </data>
+  <data name="ERASING_SUCCESSFUL" xml:space="preserve">
+    <value>Drivers não utilizados apagados com êxito</value>
+  </data>
+  <data name="FAILED_CHANGING_RESOLUTION" xml:space="preserve">
+    <value>Falha ao alterar a resolução</value>
+  </data>
+  <data name="FIRMWARE_TYPE" xml:space="preserve">
+    <value>Tipo de firmware</value>
+  </data>
+  <data name="HW_MODEL" xml:space="preserve">
+    <value>Modelo do hardware</value>
+  </data>
+  <data name="INSTALL_DRIVERS" xml:space="preserve">
+    <value>Instalar drivers</value>
+  </data>
+  <data name="INSTALL_FINISHED" xml:space="preserve">
+    <value>Instalação finalizada</value>
+  </data>
+  <data name="LOG_LOCATION" xml:space="preserve">
+    <value>Local do arquivo de log</value>
+  </data>
+  <data name="NOT_CHANGING_RESOLUTION" xml:space="preserve">
+    <value>Ignorando alteração da resolução</value>
+  </data>
+  <data name="NOT_ERASING_GARBAGE" xml:space="preserve">
+    <value>Ignorando exclusão de drivers não utilizados</value>
+  </data>
+  <data name="NOT_INSTALLING_DRIVERS" xml:space="preserve">
+    <value>Ignorando a adição e instalação de drivers</value>
+  </data>
+  <data name="NOT_REBOOTING" xml:space="preserve">
+    <value>Ignorando reinicialização</value>
+  </data>
+  <data name="OS_ARCH" xml:space="preserve">
+    <value>Arquitetura do sistema</value>
+  </data>
+  <data name="OS_VERSION" xml:space="preserve">
+    <value>Versão do sistema</value>
+  </data>
+  <data name="PAUSE_AFTER_FINISH" xml:space="preserve">
+    <value>Pausar após finalização</value>
+  </data>
+  <data name="REBOOT_AFTER_FINISH" xml:space="preserve">
+    <value>Reiniciar após finalização</value>
+  </data>
+  <data name="REBOOT_CHANGING_RESOLUTION" xml:space="preserve">
+    <value>Reinicialização necessária para alterar a resolução</value>
+  </data>
+  <data name="RESOLUTION_HEIGHT" xml:space="preserve">
+    <value>Resolução vertical</value>
+  </data>
+  <data name="RESOLUTION_WIDTH" xml:space="preserve">
+    <value>Resolução horizontal</value>
+  </data>
+  <data name="UNSUPPORTED_OS" xml:space="preserve">
+    <value>Sistema não suportado</value>
   </data>
 </root>

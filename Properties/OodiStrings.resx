@@ -127,6 +127,12 @@
   <data name="ADDING_INSTALLING" xml:space="preserve">
     <value>Adding and installing drivers</value>
   </data>
+  <data name="ADD_DRIVERS" xml:space="preserve">
+    <value>Add drivers</value>
+  </data>
+  <data name="CHANGE_RESOLUTION" xml:space="preserve">
+    <value>Change resolution</value>
+  </data>
   <data name="CHANGING_RESOLUTION" xml:space="preserve">
     <value>Changing resolution</value>
   </data>
@@ -148,6 +154,9 @@
   <data name="DRIVER_INSTALL_FAILED" xml:space="preserve">
     <value>Driver installation failed</value>
   </data>
+  <data name="DRIVER_PATH" xml:space="preserve">
+    <value>Driver path</value>
+  </data>
   <data name="ERASING_GARBAGE" xml:space="preserve">
     <value>Deleting unused drivers</value>
   </data>
@@ -163,8 +172,14 @@
   <data name="HW_MODEL" xml:space="preserve">
     <value>Hardware model</value>
   </data>
+  <data name="INSTALL_DRIVERS" xml:space="preserve">
+    <value>Install drivers</value>
+  </data>
   <data name="INSTALL_FINISHED" xml:space="preserve">
     <value>Finished installation</value>
+  </data>
+  <data name="LOG_LOCATION" xml:space="preserve">
+    <value>Log file location</value>
   </data>
   <data name="NOT_CHANGING_RESOLUTION" xml:space="preserve">
     <value>Ignoring resolution change</value>
@@ -184,8 +199,20 @@
   <data name="OS_VERSION" xml:space="preserve">
     <value>System version</value>
   </data>
+  <data name="PAUSE_AFTER_FINISH" xml:space="preserve">
+    <value>Pause after finish</value>
+  </data>
+  <data name="REBOOT_AFTER_FINISH" xml:space="preserve">
+    <value>Reboot after finish</value>
+  </data>
   <data name="REBOOT_CHANGING_RESOLUTION" xml:space="preserve">
     <value>Reboot required to change resolution</value>
+  </data>
+  <data name="RESOLUTION_HEIGHT" xml:space="preserve">
+    <value>Vertical resolution</value>
+  </data>
+  <data name="RESOLUTION_WIDTH" xml:space="preserve">
+    <value>Horizontal resolution</value>
   </data>
   <data name="UNSUPPORTED_OS" xml:space="preserve">
     <value>Unsupported system</value>

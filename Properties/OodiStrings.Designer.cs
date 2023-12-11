@@ -22,14 +22,14 @@ namespace OOBEOfflineDriverInstaller.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Strings {
+    internal class OodiStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Strings() {
+        internal OodiStrings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace OOBEOfflineDriverInstaller.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("OOBEOfflineDriverInstaller.Properties.Strings", typeof(Strings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("OOBEOfflineDriverInstaller.Properties.OodiStrings", typeof(OodiStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -70,6 +70,15 @@ namespace OOBEOfflineDriverInstaller.Properties {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Add drivers.
+        /// </summary>
+        internal static string ADD_DRIVERS {
+            get {
+                return ResourceManager.GetString("ADD_DRIVERS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Just adding drivers.
         /// </summary>
         internal static string ADDING {
@@ -84,6 +93,15 @@ namespace OOBEOfflineDriverInstaller.Properties {
         internal static string ADDING_INSTALLING {
             get {
                 return ResourceManager.GetString("ADDING_INSTALLING", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Change resolution.
+        /// </summary>
+        internal static string CHANGE_RESOLUTION {
+            get {
+                return ResourceManager.GetString("CHANGE_RESOLUTION", resourceCulture);
             }
         }
         
@@ -151,6 +169,15 @@ namespace OOBEOfflineDriverInstaller.Properties {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Driver path.
+        /// </summary>
+        internal static string DRIVER_PATH {
+            get {
+                return ResourceManager.GetString("DRIVER_PATH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Deleting unused drivers.
         /// </summary>
         internal static string ERASING_GARBAGE {
@@ -196,11 +223,29 @@ namespace OOBEOfflineDriverInstaller.Properties {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Install drivers.
+        /// </summary>
+        internal static string INSTALL_DRIVERS {
+            get {
+                return ResourceManager.GetString("INSTALL_DRIVERS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Finished installation.
         /// </summary>
         internal static string INSTALL_FINISHED {
             get {
                 return ResourceManager.GetString("INSTALL_FINISHED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Log file location.
+        /// </summary>
+        internal static string LOG_LOCATION {
+            get {
+                return ResourceManager.GetString("LOG_LOCATION", resourceCulture);
             }
         }
         
@@ -259,11 +304,47 @@ namespace OOBEOfflineDriverInstaller.Properties {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Pause after finish.
+        /// </summary>
+        internal static string PAUSE_AFTER_FINISH {
+            get {
+                return ResourceManager.GetString("PAUSE_AFTER_FINISH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Reboot after finish.
+        /// </summary>
+        internal static string REBOOT_AFTER_FINISH {
+            get {
+                return ResourceManager.GetString("REBOOT_AFTER_FINISH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Reboot required to change resolution.
         /// </summary>
         internal static string REBOOT_CHANGING_RESOLUTION {
             get {
                 return ResourceManager.GetString("REBOOT_CHANGING_RESOLUTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Vertical resolution.
+        /// </summary>
+        internal static string RESOLUTION_HEIGHT {
+            get {
+                return ResourceManager.GetString("RESOLUTION_HEIGHT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Horizontal resolution.
+        /// </summary>
+        internal static string RESOLUTION_WIDTH {
+            get {
+                return ResourceManager.GetString("RESOLUTION_WIDTH", resourceCulture);
             }
         }
         

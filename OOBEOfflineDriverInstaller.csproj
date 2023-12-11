@@ -40,8 +40,8 @@
     <AssemblyName>OODI</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="INIFileParser, Version=2.5.2.0, Culture=neutral, PublicKeyToken=79af7b307b65cf3c, processorArchitecture=MSIL">
-      <HintPath>packages\ini-parser.2.5.2\lib\net20\INIFileParser.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -61,20 +61,15 @@
     <Compile Include="PnpUtilCaller.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
+    <Compile Include="Properties\OodiStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
+      <DependentUpon>OodiStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Strings.Designer.cs">
+    <Compile Include="Properties\OodiStrings.pt.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Strings.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Strings.pt.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Strings.pt.resx</DependentUpon>
+      <DependentUpon>OodiStrings.pt.resx</DependentUpon>
     </Compile>
     <Compile Include="ResolutionChanger.cs" />
   </ItemGroup>
@@ -84,17 +79,13 @@
     <None Include="Properties\app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
+    <EmbeddedResource Include="Properties\OodiStrings.pt.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <LastGenOutput>OodiStrings.pt.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Strings.pt.resx">
+    <EmbeddedResource Include="Properties\OodiStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Strings.pt.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Strings.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+      <LastGenOutput>OodiStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -128,6 +119,6 @@
     $(PostBuildEventDependsOn);
     PostBuildMacros;
   </PostBuildEventDependsOn>
-    <PostBuildEvent>xcopy /Y "$(TargetDir)..\generic-settings\definitions.ini" &amp; if $(ConfigurationName) == Release del /F /Q $(TargetName)-v@(VersionNumber)$(TargetExt) &amp; ren $(TargetFileName) $(TargetName)-v@(VersionNumber)$(TargetExt) &amp; del /F /Q *.xml &amp; del /F /Q ..\zip\github\$(TargetName)-v@(VersionNumber).7z &amp; 7z a -r ..\zip\github\$(TargetName)-v@(VersionNumber).7z *</PostBuildEvent>
+    <PostBuildEvent>xcopy /Y "$(TargetDir)..\generic-settings\config.json" &amp; if $(ConfigurationName) == Release del /F /Q del /F /Q *.xml &amp; del /F /Q ..\zip\github\$(TargetName)-v@(VersionNumber).7z &amp; 7z a -r ..\zip\github\$(TargetName)-v@(VersionNumber).7z *</PostBuildEvent>
   </PropertyGroup>
 </Project>

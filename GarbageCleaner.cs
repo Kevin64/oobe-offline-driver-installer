@@ -11,20 +11,21 @@ namespace OOBEOfflineDriverInstaller
         public static void CleanDirectories(string path, LogGenerator log)
         {
             string model = HardwareInfo.GetModel(); //Checks for hardware model
-            string type = HardwareInfo.GetFwType(); //Checks for firmware type
-            string osVersion = HardwareInfo.GetOSVersion(); //Checks for OS version
+            string type = HardwareInfo.GetFirmwareType(); //Checks for firmware type
+            string osVersion = HardwareInfo.GetOSBuildAndRevision(); //Checks for OS version
+            osVersion = osVersion.Substring(0, osVersion.LastIndexOf("."));
             string osArch = HardwareInfo.GetOSArchAlt(); //Checks for OS architecture
-            if (model == ConstantsDLL.Properties.Resources.ToBeFilledByOEM || model == string.Empty)
+            if (model == ConstantsDLL.Properties.GenericResources.TO_BE_FILLED_BY_OEM || model == string.Empty)
             {
                 model = HardwareInfo.GetModelAlt(); //Checks for hardware model (alt method)
             }
             if (type == "0")
             {
-                type = ConstantsDLL.Properties.Resources.fwTypeBIOS;
+                type = ConstantsDLL.Properties.GenericResources.FW_TYPE_BIOS;
             }
             else if (type == "1")
             {
-                type = ConstantsDLL.Properties.Resources.fwTypeUEFI;
+                type = ConstantsDLL.Properties.GenericResources.FW_TYPE_UEFI;
             }
             if (osArch.Contains("64"))
             {
@@ -39,10 +40,10 @@ namespace OOBEOfflineDriverInstaller
                 //Check if driver directory exists
                 if (!Directory.Exists(pathExt))
                 {
-                    throw new DirectoryNotFoundException(Strings.DIRECTORY_DO_NOT_EXIST);
+                    throw new DirectoryNotFoundException(OodiStrings.DIRECTORY_DO_NOT_EXIST);
                 }
 
-                log.LogWrite(Convert.ToInt32(ConstantsDLL.Properties.Resources.LOG_INFO), Strings.ERASING_GARBAGE, string.Empty, Convert.ToBoolean(ConstantsDLL.Properties.Resources.consoleOutCLI));
+                log.LogWrite(Convert.ToInt32(LogGenerator.LOG_SEVERITY.LOG_INFO), OodiStrings.ERASING_GARBAGE, string.Empty, Convert.ToBoolean(ConstantsDLL.Properties.GenericResources.CONSOLE_OUT_CLI));
 
                 //Deletes directories other than the model's one
                 foreach (DirectoryInfo dir in directory.GetDirectories())
@@ -52,11 +53,11 @@ namespace OOBEOfflineDriverInstaller
                         dir.Delete(true);
                     }
                 }
-                log.LogWrite(Convert.ToInt32(ConstantsDLL.Properties.Resources.LOG_INFO), Strings.ERASING_SUCCESSFUL, string.Empty, Convert.ToBoolean(ConstantsDLL.Properties.Resources.consoleOutCLI));
+                log.LogWrite(Convert.ToInt32(LogGenerator.LOG_SEVERITY.LOG_INFO), OodiStrings.ERASING_SUCCESSFUL, string.Empty, Convert.ToBoolean(ConstantsDLL.Properties.GenericResources.CONSOLE_OUT_CLI));
             }
             catch (DirectoryNotFoundException e)
             {
-                log.LogWrite(Convert.ToInt32(ConstantsDLL.Properties.Resources.LOG_ERROR), pathExt, e.Message, Convert.ToBoolean(ConstantsDLL.Properties.Resources.consoleOutCLI));
+                log.LogWrite(Convert.ToInt32(LogGenerator.LOG_SEVERITY.LOG_ERROR), pathExt, e.Message, Convert.ToBoolean(ConstantsDLL.Properties.GenericResources.CONSOLE_OUT_CLI));
             }
         }
     }
