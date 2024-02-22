@@ -14,8 +14,7 @@ namespace OOBEOfflineDriverInstaller
             string inst = string.Empty;
             string model = HardwareInfo.GetModel(); //Checks for hardware model
             string type = HardwareInfo.GetFirmwareType(); //Checks for firmware type
-            string osVersion = HardwareInfo.GetOSBuildAndRevision(); //Checks for OS version
-            osVersion = osVersion.Substring(0, osVersion.LastIndexOf("."));
+            string osVersion = HardwareInfo.GetWinVersion(); //Checks for OS version
             string osArch = HardwareInfo.GetOSArchAlt(); //Checks for OS architecture
 
             if (model == ConstantsDLL.Properties.GenericResources.TO_BE_FILLED_BY_OEM || model == string.Empty)
